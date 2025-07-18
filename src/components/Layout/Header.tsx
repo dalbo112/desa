@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useGlobalContent } from '../../hooks/useContent';
 import { Menu, X, Home, Info, Newspaper, ImageIcon, Calendar, Users, Phone, FileText } from 'lucide-react';
 import { DesaSettings } from '../../types';
 import { getDesaSettings } from '../../services/api';
@@ -8,6 +9,9 @@ const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [settings, setSettings] = useState<DesaSettings | null>(null);
   const location = useLocation();
+  
+  // Use global content hook for navigation
+  const { getNavigation } = useGlobalContent();
 
   useEffect(() => {
     const fetchSettings = async () => {
@@ -22,14 +26,14 @@ const Header: React.FC = () => {
   }, []);
 
   const navigation = [
-    { name: 'Beranda', href: '/', icon: Home },
-    { name: 'Tentang', href: '/tentang', icon: Info },
-    { name: 'Berita', href: '/berita', icon: Newspaper },
-    { name: 'Galeri', href: '/galeri', icon: ImageIcon },
-    { name: 'Agenda', href: '/agenda', icon: Calendar },
-    { name: 'Struktur', href: '/struktur', icon: Users },
-    { name: 'Layanan', href: '/layanan', icon: FileText },
-    { name: 'Kontak', href: '/kontak', icon: Phone },
+    { name: getNavigation('nav_home', 'Beranda'), href: '/', icon: Home },
+    { name: getNavigation('nav_about', 'Tentang'), href: '/tentang', icon: Info },
+    { name: getNavigation('nav_news', 'Berita'), href: '/berita', icon: Newspaper },
+    { name: getNavigation('nav_gallery', 'Galeri'), href: '/galeri', icon: ImageIcon },
+    { name: getNavigation('nav_events', 'Agenda'), href: '/agenda', icon: Calendar },
+    { name: getNavigation('nav_organization', 'Struktur'), href: '/struktur', icon: Users },
+    { name: getNavigation('nav_services', 'Layanan'), href: '/layanan', icon: FileText },
+    { name: getNavigation('nav_contact', 'Kontak'), href: '/kontak', icon: Phone },
   ];
 
   const isActive = (path: string) => location.pathname === path;

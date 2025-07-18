@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useGlobalContent } from '../../hooks/useContent';
 import { MapPin, Phone, Mail, Clock, Facebook, Twitter, Instagram, Youtube } from 'lucide-react';
 import { DesaSettings } from '../../types';
 import { getDesaSettings } from '../../services/api';
 
 const Footer: React.FC = () => {
   const [settings, setSettings] = useState<DesaSettings | null>(null);
+  
+  // Use global content hook for footer text
+  const { getFooter, getNavigation } = useGlobalContent();
 
   useEffect(() => {
     const fetchSettings = async () => {
@@ -63,31 +67,33 @@ const Footer: React.FC = () => {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Tautan Cepat</h4>
+            <h4 className="text-lg font-semibold mb-4">
+              {getFooter('footer_quick_links_title', 'Tautan Cepat')}
+            </h4>
             <ul className="space-y-2">
               <li>
                 <Link to="/tentang" className="text-gray-400 hover:text-white transition-colors">
-                  Tentang Desa
+                  {getNavigation('nav_about', 'Tentang Desa')}
                 </Link>
               </li>
               <li>
                 <Link to="/berita" className="text-gray-400 hover:text-white transition-colors">
-                  Berita
+                  {getNavigation('nav_news', 'Berita')}
                 </Link>
               </li>
               <li>
                 <Link to="/galeri" className="text-gray-400 hover:text-white transition-colors">
-                  Galeri
+                  {getNavigation('nav_gallery', 'Galeri')}
                 </Link>
               </li>
               <li>
                 <Link to="/agenda" className="text-gray-400 hover:text-white transition-colors">
-                  Agenda
+                  {getNavigation('nav_events', 'Agenda')}
                 </Link>
               </li>
               <li>
                 <Link to="/layanan" className="text-gray-400 hover:text-white transition-colors">
-                  Layanan
+                  {getNavigation('nav_services', 'Layanan')}
                 </Link>
               </li>
             </ul>
@@ -95,7 +101,9 @@ const Footer: React.FC = () => {
 
           {/* Contact Info */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Kontak</h4>
+            <h4 className="text-lg font-semibold mb-4">
+              {getFooter('footer_contact_title', 'Kontak')}
+            </h4>
             <div className="space-y-3">
               <div className="flex items-start space-x-3">
                 <MapPin className="w-5 h-5 text-gray-400 mt-0.5" />
@@ -121,7 +129,7 @@ const Footer: React.FC = () => {
 
         <div className="border-t border-gray-800 mt-8 pt-8 text-center">
           <p className="text-gray-400 text-sm">
-            &copy; {new Date().getFullYear()} {settings?.nama_desa || 'Desa Digital'}. All rights reserved.
+            {getFooter('footer_copyright', `© ${new Date().getFullYear()} ${settings?.nama_desa || 'Desa Digital'}. All rights reserved.`)}
           </p>
         </div>
       </div>

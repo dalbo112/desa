@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useContent } from '../hooks/useContent';
 import { 
   Users, MapPin, Calendar, FileText, 
   Newspaper, ImageIcon, Phone, Award 
@@ -13,7 +14,10 @@ const Home: React.FC = () => {
   const [settings, setSettings] = useState<DesaSettings | null>(null);
   const [news, setNews] = useState<News[]>([]);
   const [events, setEvents] = useState<Event[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [dataLoading, setDataLoading] = useState(true);
+  
+  // Use content hook for dynamic text
+  const { pageContent, loading: contentLoading, getContent } = useContent('homepage');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,14 +34,14 @@ const Home: React.FC = () => {
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
-        setLoading(false);
+        setDataLoading(false);
       }
     };
 
     fetchData();
   }, []);
 
-  if (loading) {
+  if (dataLoading || contentLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <LoadingSpinner size="lg" />
@@ -76,10 +80,13 @@ const Home: React.FC = () => {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              {settings?.nama_desa || 'Desa Digital'}
+              {getContent('hero', 'hero_title', settings?.nama_desa || 'Desa Digital')}
             </h1>
             <p className="text-xl md:text-2xl mb-8 text-blue-100">
-              {settings?.slogan || 'Menuju Desa Modern dan Sejahtera'}
+              {getContent('hero', 'hero_subtitle', settings?.slogan || 'Menuju Desa Modern dan Sejahtera')}
+            </p>
+            <p className="text-lg mb-8 text-blue-200 max-w-3xl mx-auto">
+              {getContent('hero', 'hero_description', 'Website resmi desa yang menyediakan informasi terkini dan layanan publik untuk masyarakat')}
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               {quickServices.map((service) => (
@@ -116,8 +123,12 @@ const Home: React.FC = () => {
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Berita Terkini</h2>
-            <p className="text-lg text-gray-600">Informasi terbaru dari desa</p>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              {getContent('news_preview', 'news_preview_title', 'Berita Terkini')}
+            </h2>
+            <p className="text-lg text-gray-600">
+              {getContent('news_preview', 'news_preview_subtitle', 'Informasi terbaru dari desa')}
+            </p>
           </div>
           
           <div className="grid md:grid-cols-3 gap-8">
@@ -150,7 +161,7 @@ const Home: React.FC = () => {
                     to={`/berita/${article.slug}`}
                     className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium"
                   >
-                    Baca Selengkapnya
+                    {getContent('news_preview', 'news_read_more', 'Baca Selengkapnya')}
                   </Link>
                 </div>
               </Card>
@@ -162,7 +173,7 @@ const Home: React.FC = () => {
               to="/berita"
               className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
             >
-              Lihat Semua Berita
+              {getContent('news_preview', 'news_view_all', 'Lihat Semua Berita')}
             </Link>
           </div>
         </div>
@@ -172,8 +183,12 @@ const Home: React.FC = () => {
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Agenda Mendatang</h2>
-            <p className="text-lg text-gray-600">Kegiatan dan acara yang akan datang</p>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              {getContent('events_preview', 'events_preview_title', 'Agenda Mendatang')}
+            </h2>
+            <p className="text-lg text-gray-600">
+              {getContent('events_preview', 'events_preview_subtitle', 'Kegiatan dan acara yang akan datang')}
+            </p>
           </div>
           
           <div className="grid md:grid-cols-3 gap-8">
@@ -206,7 +221,7 @@ const Home: React.FC = () => {
               to="/agenda"
               className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
             >
-              Lihat Semua Agenda
+              {getContent('events_preview', 'events_view_all', 'Lihat Semua Agenda')}
             </Link>
           </div>
         </div>
@@ -218,10 +233,10 @@ const Home: React.FC = () => {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                Tentang {settings?.nama_desa || 'Desa Kami'}
+                {getContent('about_preview', 'about_preview_title', `Tentang ${settings?.nama_desa || 'Desa Kami'}`)}
               </h2>
               <p className="text-lg text-gray-600 mb-6">
-                {settings?.deskripsi || 'Desa modern yang mengutamakan pelayanan publik yang prima dan transparansi dalam pengelolaan pemerintahan.'}
+                {getContent('about_preview', 'about_preview_description', settings?.deskripsi || 'Desa modern yang mengutamakan pelayanan publik yang prima dan transparansi dalam pengelolaan pemerintahan.')}
               </p>
               <div className="flex items-center space-x-4 mb-6">
                 <div className="flex items-center text-gray-600">
@@ -233,7 +248,7 @@ const Home: React.FC = () => {
                 to="/tentang"
                 className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
               >
-                Selengkapnya
+                {getContent('about_preview', 'about_preview_button', 'Selengkapnya')}
               </Link>
             </div>
             <div className="relative">
