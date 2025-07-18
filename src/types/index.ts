@@ -10,6 +10,17 @@ export interface DesaSettings {
   primary_color: string;
   secondary_color: string;
   deskripsi: string;
+  visi: string;
+  misi: string;
+  sejarah: string;
+  telepon: string;
+  email: string;
+  website: string;
+  facebook: string;
+  twitter: string;
+  instagram: string;
+  youtube: string;
+  jam_operasional: string;
   created_at: Date;
   updated_at: Date;
 }
@@ -23,6 +34,10 @@ export interface News {
   tanggal: Date;
   penulis: string;
   status: 'published' | 'draft';
+  kategori: string;
+  tags: string;
+  views: number;
+  featured: boolean;
   created_at: Date;
   updated_at: Date;
 }
@@ -34,6 +49,9 @@ export interface Gallery {
   gambar: string;
   kategori: string;
   tanggal: Date;
+  photographer: string;
+  lokasi: string;
+  featured: boolean;
   created_at: Date;
   updated_at: Date;
 }
@@ -43,8 +61,16 @@ export interface Event {
   judul: string;
   deskripsi: string;
   tanggal: Date;
+  tanggal_selesai: Date;
   lokasi: string;
   gambar: string;
+  kategori: string;
+  penyelenggara: string;
+  kontak: string;
+  biaya: number;
+  kapasitas: number;
+  status: 'upcoming' | 'ongoing' | 'completed' | 'cancelled';
+  featured: boolean;
   created_at: Date;
   updated_at: Date;
 }
@@ -55,6 +81,13 @@ export interface Organization {
   jabatan: string;
   foto: string;
   urutan: number;
+  nip: string;
+  pendidikan: string;
+  alamat: string;
+  telepon: string;
+  email: string;
+  masa_jabatan: string;
+  tugas_pokok: string;
   created_at: Date;
   updated_at: Date;
 }
@@ -65,6 +98,13 @@ export interface Service {
   deskripsi: string;
   persyaratan: string;
   template_dokumen: string;
+  kategori: string;
+  biaya: number;
+  waktu_proses: string;
+  jam_layanan: string;
+  penanggung_jawab: string;
+  status: 'active' | 'inactive';
+  urutan: number;
   created_at: Date;
   updated_at: Date;
 }
@@ -75,9 +115,13 @@ export interface ServiceSubmission {
   nomor_pengajuan: string;
   nama: string;
   nik: string;
+  alamat: string;
+  telepon: string;
+  email: string;
   file_pendukung: string;
   status: 'pending' | 'diproses' | 'selesai' | 'ditolak';
   catatan: string;
+  tanggal_selesai: Date;
   created_at: Date;
   updated_at: Date;
 }
@@ -89,6 +133,12 @@ export interface Document {
   file_path: string;
   kategori: string;
   ukuran: number;
+  tipe_file: string;
+  tahun: number;
+  nomor_dokumen: string;
+  tanggal_terbit: Date;
+  status: 'active' | 'archived';
+  download_count: number;
   created_at: Date;
   updated_at: Date;
 }
@@ -98,6 +148,116 @@ export interface Admin {
   nama: string;
   email: string;
   password: string;
+  role: 'super_admin' | 'admin' | 'editor';
+  foto: string;
+  telepon: string;
+  status: 'active' | 'inactive';
+  last_login: Date;
+  created_at: Date;
+  updated_at: Date;
+}
+
+// New interfaces for additional configurable content
+export interface MenuNavigasi {
+  id: number;
+  nama: string;
+  url: string;
+  icon: string;
+  urutan: number;
+  parent_id: number | null;
+  target: '_self' | '_blank';
+  status: 'active' | 'inactive';
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface SliderBeranda {
+  id: number;
+  judul: string;
+  subjudul: string;
+  deskripsi: string;
+  gambar: string;
+  link_url: string;
+  link_text: string;
+  urutan: number;
+  status: 'active' | 'inactive';
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface StatistikDesa {
+  id: number;
+  nama: string;
+  nilai: string;
+  satuan: string;
+  icon: string;
+  warna: string;
+  urutan: number;
+  status: 'active' | 'inactive';
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface FasilitasDesa {
+  id: number;
+  nama: string;
+  deskripsi: string;
+  alamat: string;
+  gambar: string;
+  kategori: string;
+  jam_operasional: string;
+  kontak: string;
+  status: 'active' | 'inactive' | 'maintenance';
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface Pengumuman {
+  id: number;
+  judul: string;
+  konten: string;
+  tipe: 'info' | 'warning' | 'urgent';
+  tanggal_mulai: Date;
+  tanggal_selesai: Date;
+  status: 'active' | 'inactive';
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface KontakDarurat {
+  id: number;
+  nama: string;
+  jabatan: string;
+  telepon: string;
+  kategori: 'kesehatan' | 'keamanan' | 'pemadam' | 'pemerintah' | 'lainnya';
+  alamat: string;
+  jam_layanan: string;
+  urutan: number;
+  status: 'active' | 'inactive';
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface Testimoni {
+  id: number;
+  nama: string;
+  jabatan: string;
+  foto: string;
+  konten: string;
+  rating: number;
+  status: 'active' | 'inactive';
+  featured: boolean;
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface FAQ {
+  id: number;
+  pertanyaan: string;
+  jawaban: string;
+  kategori: string;
+  urutan: number;
+  status: 'active' | 'inactive';
   created_at: Date;
   updated_at: Date;
 }

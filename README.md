@@ -92,7 +92,7 @@ DB_PORT=3306
 
 ### Database Setup
 
-1. **Create Database**: Run the SQL script in `public/database-setup.sql`
+1. **Create Database**: Import the SQL script `database-setup-complete.sql` into phpMyAdmin
 2. **Auto-initialization**: The app will automatically create tables on first run
 3. **Sample Data**: Includes complete sample data for testing
 
@@ -103,8 +103,9 @@ DB_PORT=3306
 
 ## Database Schema
 
-The application is designed to use the following MySQL tables:
+The application uses the following MySQL tables:
 
+### Core Tables
 - `desa_settings`: Village configuration and branding
 - `news`: News articles and announcements
 - `galleries`: Photo gallery items
@@ -115,6 +116,17 @@ The application is designed to use the following MySQL tables:
 - `dokumen`: Public documents
 - `admins`: Admin users
 
+### Additional Content Tables
+- `menu_navigasi`: Navigation menu configuration
+- `slider_beranda`: Homepage slider content
+- `statistik_desa`: Village statistics display
+- `fasilitas_desa`: Village facilities information
+- `pengumuman`: Public announcements
+- `kontak_darurat`: Emergency contact numbers
+- `testimoni`: User testimonials
+- `faq`: Frequently asked questions
+
+All tables include comprehensive fields for complete content management through the admin panel.
 ## Key Features in Detail
 
 ### Responsive Design

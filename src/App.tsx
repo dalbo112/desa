@@ -23,6 +23,7 @@ import EventsManagement from './pages/admin/EventsManagement';
 import OrganizationManagement from './pages/admin/OrganizationManagement';
 import ServicesManagement from './pages/admin/ServicesManagement';
 import SettingsManagement from './pages/admin/SettingsManagement';
+import ContentManagement from './pages/admin/ContentManagement';
 
 function App() {
   useEffect(() => {
@@ -52,6 +53,7 @@ function App() {
         <Route path="/admin/struktur" element={<ProtectedRoute><OrganizationManagement /></ProtectedRoute>} />
         <Route path="/admin/layanan" element={<ProtectedRoute><ServicesManagement /></ProtectedRoute>} />
         <Route path="/admin/pengaturan" element={<ProtectedRoute><SettingsManagement /></ProtectedRoute>} />
+        <Route path="/admin/konten" element={<ProtectedRoute><ContentManagement /></ProtectedRoute>} />
         
         {/* 404 Page */}
         <Route path="*" element={

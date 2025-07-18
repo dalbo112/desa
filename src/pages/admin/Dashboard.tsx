@@ -94,6 +94,7 @@ const Dashboard: React.FC = () => {
     { title: 'Kelola Agenda', icon: Calendar, href: '/admin/agenda', color: 'bg-green-500' },
     { title: 'Kelola Struktur', icon: Users, href: '/admin/struktur', color: 'bg-indigo-500' },
     { title: 'Kelola Layanan', icon: FileText, href: '/admin/layanan', color: 'bg-orange-500' },
+    { title: 'Kelola Konten', icon: Settings, href: '/admin/konten', color: 'bg-teal-500' },
     { title: 'Pengaturan Desa', icon: Settings, href: '/admin/pengaturan', color: 'bg-gray-500' }
   ];
 
